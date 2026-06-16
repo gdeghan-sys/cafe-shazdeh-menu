@@ -5,252 +5,123 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>منوی دیجیتال کافه شازده</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- فونت‌های فارسی -->
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&family=Noto+Naskh+Arabic:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --accent: #e67e22; /* رنگ نارنجی گرم کافه‌ای */
-            --bg: #121212;
-            --card-bg: rgba(30, 30, 30, 0.7);
+            --accent: #d4af37; /* رنگ طلایی برای جزئیات */
+            --bg-dark: #1a0000;
+            --bg-red: #3d0000;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, sans-serif;
+            font-family: 'Vazirmatn', sans-serif;
             margin: 0;
-            background-color: var(--bg);
+            background: radial-gradient(circle at center, var(--bg-red), var(--bg-dark));
+            background-attachment: fixed;
             color: #eee;
-            background-image: url('https://www.transparenttextures.com/patterns/dark-matter.png');
             line-height: 1.6;
+            min-height: 100vh;
         }
 
-        /* هدر */
-        header {
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.9)), url('https://images.unsplash.com/photo-1447933601403-0c6688de566e?q=80&w=1000&auto=format&fit=crop');
+        /* پس‌زمینه محو قهوه */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background-image: url('https://images.unsplash.com/photo-1509042239860-f550ce710b93?q=80&w=1600&auto=format&fit=crop');
             background-size: cover;
             background-position: center;
+            opacity: 0.07;
+            filter: blur(8px);
+            z-index: -2;
+        }
+
+        header {
             text-align: center;
             padding: 60px 20px;
-            border-bottom: 3px solid var(--accent);
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5));
+            border-bottom: 2px solid var(--accent);
         }
 
-        header h1 { font-size: 3rem; margin: 0; color: var(--accent); text-shadow: 3px 3px 15px rgba(0,0,0,0.8); }
-        header p { font-size: 1.1rem; margin-top: 10px; opacity: 0.9; }
+        header h1 { 
+            font-family: 'Noto Naskh Arabic', serif; /* فونت نستعلیق مدرن */
+            font-size: 3.5rem; 
+            margin: 0; 
+            color: #fff; 
+            text-shadow: 0 4px 15px rgba(0,0,0,0.5); 
+        }
 
-        /* نوار دسته‌بندی چسبان */
         .category-nav {
-            position: sticky;
-            top: 0;
-            background: rgba(18, 18, 18, 0.95);
+            position: sticky; top: 0;
+            background: rgba(40, 0, 0, 0.8);
             backdrop-filter: blur(10px);
-            display: flex;
-            overflow-x: auto;
-            padding: 15px;
-            gap: 12px;
+            display: flex; overflow-x: auto; padding: 15px; gap: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
             z-index: 1000;
-            border-bottom: 1px solid #333;
         }
-
-        .category-nav::-webkit-scrollbar { height: 4px; }
-        .category-nav::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
 
         .nav-item {
-            background: #252525;
-            color: #ccc;
-            padding: 8px 18px;
-            border-radius: 30px;
-            white-space: nowrap;
-            text-decoration: none;
-            font-size: 0.95rem;
-            border: 1px solid #444;
-            transition: 0.3s;
+            background: rgba(255,255,255,0.05);
+            color: #ccc; padding: 8px 18px; border-radius: 30px;
+            text-decoration: none; font-size: 0.9rem; border: 1px solid rgba(255,255,255,0.1);
         }
 
-        .nav-item:hover, .nav-item.active {
-            background: var(--accent);
-            color: white;
-            border-color: var(--accent);
-            box-shadow: 0 4px 15px rgba(230, 126, 34, 0.3);
-        }
+        .nav-item:hover, .nav-item.active { background: var(--accent); color: #000; }
 
-        /* محتوای منو */
         .container { max-width: 800px; margin: 20px auto; padding: 0 15px; }
 
-        .category-block { margin-bottom: 50px; scroll-margin-top: 100px; }
-        
-        .category-title {
-            font-size: 1.8rem;
-            color: var(--accent);
-            margin-bottom: 25px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        .category-title::after { content: ""; flex: 1; height: 1px; background: #444; }
-
-        /* کارت محصول */
         .item-card {
-            background: var(--card-bg);
-            border-radius: 20px;
-            padding: 15px;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 18px;
-            border: 1px solid rgba(255,255,255,0.05);
-            transition: 0.4s ease;
-        }
-
-        .item-card:hover {
-            transform: scale(1.02);
-            background: rgba(45, 45, 45, 0.9);
-            border-color: var(--accent);
-        }
-
-        .item-img {
-            width: 90px;
-            height: 90px;
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(5px);
             border-radius: 15px;
-            object-fit: cover;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            padding: 15px; margin-bottom: 20px;
+            display: flex; align-items: center; gap: 15px;
+            border: 1px solid rgba(255,255,255,0.05);
         }
 
-        .item-details { flex-grow: 1; }
-        .item-details h3 { margin: 0; font-size: 1.25rem; color: #fff; }
-        .item-details p { margin: 6px 0 0; font-size: 0.9rem; color: #aaa; }
+        .item-img { width: 80px; height: 80px; border-radius: 12px; object-fit: cover; }
+        .item-details h3 { margin: 0; color: #fff; }
+        .item-price { font-weight: bold; color: var(--accent); }
 
-        .item-price {
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: var(--accent);
-            text-shadow: 0 0 10px rgba(230, 126, 34, 0.2);
-        }
-        .item-price span { font-size: 0.75rem; opacity: 0.7; margin-right: 3px; }
-
-        footer { text-align: center; padding: 40px; color: #555; font-size: 0.9rem; border-top: 1px solid #222; }
+        footer { text-align: center; padding: 40px; opacity: 0.5; font-size: 0.8rem; }
     </style>
 </head>
 <body>
 
 <header>
     <h1>کافه شازده</h1>
-    <p><i class="fas fa-star"></i> لحظاتی خوش برای شما شازده‌های عزیز <i class="fas fa-star"></i></p>
+    <p>لحظاتی خوش برای شما</p>
 </header>
 
-<nav class="category-nav" id="main-nav">
-    <!-- دسته‌ها توسط جاوااسکریپت ساخته می‌شوند -->
-</nav>
+<nav class="category-nav" id="main-nav"></nav>
+<div class="container" id="menu-container"></div>
 
-<div class="container" id="menu-container">
-    <!-- منو توسط جاوااسکریپت ساخته می‌شود -->
-</div>
-
-<footer>
-    &copy; ۲۰۲۴ - تمامی حقوق برای کافه شازده محفوظ است
-</footer>
+<footer>&copy; کافه شازده</footer>
 
 <script>
-    // --- دیتابیس منوی شما (اینجا را هر زمان خواستی ویرایش کن) ---
     const menuData = [
-        {
-            name: "قهوه",
-            icon: "fa-coffee",
-            items: [
-                { title: "اسپرسو سینگل", price: "۴60,000", desc: "۱۰۰٪ عربیکا خالص", img: "https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?q=80&w=200" },
-                { title: "کاپوچینو", price: "۷۵,۰۰۰", desc: "اسپرسو، شیر فوم‌دار داغ", img: "https://images.unsplash.com/photo-1572442388796-11668a67e53d?q=80&w=200" }
-            ]
-        },
-        {
-            name: "قهوه سرد",
-            icon: "fa-ice-cream",
-            items: [
-                { title: "آیس لاته", price: "۸۰,۰۰۰", desc: "ترکیب قهوه و شیر سرد با یخ", img: "https://images.unsplash.com/photo-1517701604599-bb29b565090c?q=80&w=200" }
-            ]
-        },
-        {
-            name: "نوشیدنی گرم",
-            icon: "fa-mug-hot",
-            items: [
-                { title: "هات چاکلت", price: "۷۰,۰۰۰", desc: "شکلات بلژیکی با شیر گرم", img: "https://images.unsplash.com/photo-1544787210-282bbd485703?q=80&w=200" }
-            ]
-        },
-        {
-            name: "کیک و دسر",
-            icon: "fa-cake-candles",
-            items: [
-                { title: "کیک شکلاتی", price: "۸۵,۰۰۰", desc: "تازه و خانگی با سس شکلات", img: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=200" }
-            ]
-        },
-        {
-            name: "صبحانه",
-            icon: "fa-bread-slice",
-            items: [
-                { title: "املت ایرانی", price: "۹۵,۰۰۰", desc: "گوجه فرنگی محلی و نان گرم", img: "https://images.unsplash.com/photo-1494597564530-897b7a21157c?q=80&w=200" }
-            ]
-        },
-        {
-            name: "نوشیدنی سرد",
-            icon: "fa-glass-water",
-            items: [
-                { title: "لیموناد", price: "۶۵,۰۰۰", desc: "لیمو تازه، نعنا و سودا", img: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?q=80&w=200" }
-            ]
-        },
-        {
-            name: "دمنوش",
-            icon: "fa-leaf",
-            items: [
-                { title: "آرامش", price: "۵۵,۰۰۰", desc: "گل‌گاو‌زبان، سنبل‌الطیب، لیمو", img: "https://images.unsplash.com/photo-1576092768241-dec231879fc3?q=80&w=200" }
-            ]
-        },
-        {
-            name: "شیک‌ها",
-            icon: "fa-blender",
-            items: [
-                { title: "شیک نوتلا", price: "۱۱۰,۰۰۰", desc: "بستنی وانیل و نوتلا اصل", img: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?q=80&w=200" }
-            ]
-        },
-        {
-            name: "میان‌وعده",
-            icon: "fa-hamburger",
-            items: [
-                { title: "سیب‌زمینی سرخ‌کرده", price: "۹۰,۰۰۰", desc: "همراه با ادویه مخصوص و سس", img: "https://images.unsplash.com/photo-1573082833947-d876c700320a?q=80&w=200" }
-            ]
-        }
+        { name: "قهوه", icon: "fa-coffee", items: [{ title: "اسپرسو سینگل", price: "۴۵,۰۰۰", desc: "۱۰۰٪ عربیکا خالص", img: "https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?q=80&w=200" }] },
+        { name: "کیک و دسر", icon: "fa-cake-candles", items: [{ title: "کیک شکلاتی", price: "۸۵,۰۰۰", desc: "تازه و خانگی", img: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=200" }] }
+        // ... (سایر آیتم‌ها را اینجا اضافه کنید)
     ];
 
-    // تابع رندر کردن منو
     function renderMenu() {
         const nav = document.getElementById('main-nav');
         const container = document.getElementById('menu-container');
-
         menuData.forEach((section, idx) => {
             const sectionId = `cat-${idx}`;
-            
-            // نوار بالا
-            const navLink = document.createElement('a');
-            navLink.href = `#${sectionId}`;
-            navLink.className = 'nav-item';
-            navLink.innerText = section.name;
-            nav.appendChild(navLink);
-
-            // بخش محتوا
+            nav.innerHTML += `<a href="#${sectionId}" class="nav-item">${section.name}</a>`;
             let itemsHTML = section.items.map(item => `
                 <div class="item-card">
-                    <img src="${item.img}" class="item-img" alt="${item.title}">
-                    <div class="item-details">
-                        <h3>${item.title}</h3>
-                        <p>${item.desc}</p>
-                    </div>
-                    <div class="item-price">${item.price} <span>تومان</span></div>
+                    <img src="${item.img}" class="item-img">
+                    <div class="item-details"><h3>${item.title}</h3><p>${item.desc}</p></div>
+                    <div class="item-price">${item.price}</div>
                 </div>
             `).join('');
-
-            container.innerHTML += `
-                <div class="category-block" id="${sectionId}">
-                    <div class="category-title"><i class="fas ${section.icon}"></i> ${section.name}</div>
-                    ${itemsHTML}
-                </div>
-            `;
+            container.innerHTML += `<div id="${sectionId}"><h2>${section.name}</h2>${itemsHTML}</div>`;
         });
     }
-
     renderMenu();
 </script>
 
