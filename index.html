@@ -8,44 +8,45 @@
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&family=Noto+Naskh+Arabic:wght@700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --accent: #eecda3; /* رنگ کرم-طلایی روشن */
-            --bg-red-light: #5d0000; /* قرمز روشن‌تر */
-            --bg-red-dark: #3a0000;
+            --accent: #eecda3; 
+            --bg-red-light: #5d0000; 
+            --bg-red-dark: #2a0000;
         }
 
         body {
             font-family: 'Vazirmatn', sans-serif;
             margin: 0;
-            background: radial-gradient(circle, var(--bg-red-light), var(--bg-red-dark));
+            /* پس‌زمینه قرمز مخملی با پترن دانه قهوه */
+            background-color: var(--bg-red-dark);
+            background-image: 
+                linear-gradient(rgba(42, 0, 0, 0.8), rgba(42, 0, 0, 0.9)),
+                url('https://www.transparenttextures.com/patterns/coffee-beans.png'); /* پترن دانه قهوه */
             background-attachment: fixed;
             color: #fff;
-            overflow-x: hidden;
-        }
-
-        /* وکتورهای محو قهوه در پس‌زمینه */
-        body::before {
-            content: "";
-            position: fixed;
-            inset: 0;
-            /* استفاده از وکتورهای آنلاین قهوه با شفافیت بسیار کم */
-            background-image: url('https://www.transparenttextures.com/patterns/coffee-beans.png');
-            opacity: 0.15; /* بسیار کمرنگ */
-            z-index: -1;
         }
 
         header {
             text-align: center;
-            padding: 40px 20px;
-            background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.4));
+            padding: 50px 20px;
+            background: radial-gradient(circle, rgba(93, 0, 0, 0.4), transparent);
         }
 
-        .logo {
-            width: 150px; /* اندازه لوگوی شما */
-            height: auto;
+        /* استایل لوگو */
+        .logo-container {
+            width: 130px;
+            height: 130px;
+            margin: 0 auto 15px;
             border-radius: 50%;
             border: 3px solid var(--accent);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            margin-bottom: 15px;
+            box-shadow: 0 0 20px rgba(238, 205, 163, 0.3);
+            overflow: hidden;
+            background-color: #fff; /* برای بهتر دیده شدن لوگو */
+        }
+
+        .logo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         header h1 { 
@@ -53,107 +54,90 @@
             font-size: 2.8rem;
             margin: 10px 0;
             color: var(--accent);
-            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
         }
 
         .category-nav {
             position: sticky; top: 0;
-            background: rgba(60, 0, 0, 0.9);
-            backdrop-filter: blur(15px);
+            background: rgba(42, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
             display: flex; overflow-x: auto; padding: 15px; gap: 10px;
             border-bottom: 2px solid var(--accent);
             z-index: 1000;
         }
 
         .nav-item {
-            background: rgba(255,255,255,0.1);
-            color: #fff; padding: 10px 22px; border-radius: 50px;
-            text-decoration: none; font-size: 0.95rem; 
-            border: 1px solid rgba(238, 205, 163, 0.3);
+            background: rgba(255,255,255,0.05);
+            color: #fff; padding: 8px 20px; border-radius: 50px;
+            text-decoration: none; font-size: 0.9rem; 
+            border: 1px solid rgba(238, 205, 163, 0.2);
             white-space: nowrap;
-            transition: 0.3s;
         }
 
-        .nav-item.active, .nav-item:hover {
-            background: var(--accent);
-            color: #3d0000;
-            font-weight: bold;
-        }
+        .nav-item:hover { background: var(--accent); color: #2a0000; }
 
         .container { max-width: 600px; margin: 20px auto; padding: 0 15px; }
 
         .category-title {
-            font-size: 1.8rem;
-            border-right: 5px solid var(--accent);
-            padding-right: 15px;
-            margin: 40px 0 20px;
+            font-size: 1.6rem;
             color: var(--accent);
+            margin: 40px 0 20px;
+            border-right: 4px solid var(--accent);
+            padding-right: 15px;
         }
 
         .item-card {
-            background: rgba(255,255,255,0.08);
-            border-radius: 20px;
-            padding: 15px; margin-bottom: 15px;
+            background: rgba(255,255,255,0.07);
+            border-radius: 18px;
+            padding: 12px; margin-bottom: 15px;
             display: flex; align-items: center; gap: 15px;
-            border: 1px solid rgba(255,255,255,0.1);
-            transition: transform 0.2s;
+            border: 1px solid rgba(255,255,255,0.05);
         }
 
-        .item-card:active { transform: scale(0.98); }
-
         .item-img { 
-            width: 85px; height: 85px; 
-            border-radius: 15px; 
+            width: 80px; height: 80px; 
+            border-radius: 12px; 
             object-fit: cover;
-            background: #222; 
+            background: rgba(0,0,0,0.2);
         }
 
         .item-details { flex: 1; }
-        .item-details h3 { margin: 0; font-size: 1.2rem; color: #fff; }
-        .item-details p { margin: 5px 0 0; font-size: 0.85rem; color: #ccc; }
+        .item-details h3 { margin: 0; font-size: 1.1rem; color: #fff; }
+        .item-details p { margin: 5px 0 0; font-size: 0.8rem; color: #bbb; }
 
-        .item-price { 
-            font-size: 1.1rem; 
-            font-weight: bold; 
-            color: var(--accent);
-            text-align: left;
-        }
+        .item-price { font-weight: bold; color: var(--accent); font-size: 1rem; }
 
-        footer { text-align: center; padding: 50px; opacity: 0.6; font-size: 0.8rem; }
+        footer { text-align: center; padding: 40px; opacity: 0.4; font-size: 0.7rem; }
     </style>
 </head>
 <body>
 
 <header>
-    <!-- جایگذاری لوگوی شما -->
-    <img src="https://i.ibb.co/3ykC3mS/Asset-12.png" alt="لوگو کافه شازده" class="logo">
+    <div class="logo-container">
+        <!-- لینک مستقیم لوگوی شما -->
+        <img src="https://files.catbox.moe/kixh2o.png" alt="لوگو کافه شازده">
+    </div>
     <h1>کافه شازده</h1>
-    <p>میزبان لحظات شازده‌وار شما</p>
 </header>
 
-<nav class="category-nav" id="main-nav">
-    <!-- دسته‌ها توسط جاوااسکریپت ساخته می‌شوند -->
-</nav>
+<nav class="category-nav" id="main-nav"></nav>
+<div class="container" id="menu-container"></div>
 
-<div class="container" id="menu-container">
-    <!-- آیتم‌ها توسط جاوااسکریپت ساخته می‌شوند -->
-</div>
-
-<footer>طراحی شده برای کافه شازده &copy; ۲۰۲۶</footer>
+<footer>&copy; تمامی حقوق برای کافه شازده محفوظ است</footer>
 
 <script>
     const menuData = [
         { 
             name: "قهوه", 
             items: [
-                { title: "اسپرسو سینگل", price: "۴۵,۰۰۰", desc: "۱۰۰٪ عربیکا - عصاره‌گیری استاندارد", img: "https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?q=80&w=200" },
-                { title: "کاپوچینو", price: "۷۵,۰۰۰", desc: "ترکیب اسپرسو و شیر فوم‌دار", img: "https://images.unsplash.com/photo-1572442388796-11668a67e53d?q=80&w=200" }
+                { title: "اسپرسو سینگل", price: "۴۵,۰۰۰", desc: "۱۰۰٪ عربیکا خالص", img: "https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?q=80&w=200" },
+                { title: "کاپوچینو", price: "۷۵,۰۰۰", desc: "اسپرسو و شیر فوم‌دار", img: "https://images.unsplash.com/photo-1572442388796-11668a67e53d?q=80&w=200" }
             ] 
         },
         { 
             name: "کیک و دسر", 
             items: [
-                { title: "کیک شکلاتی", price: "۸۵,۰۰۰", desc: "کیک گرم با سس شکلات مخصوص", img: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=200" }
+                { title: "کیک شکلاتی", price: "۸۵,۰۰۰", desc: "کیک خانگی با سس شکلات", img: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=200" }
             ] 
         }
     ];
@@ -161,21 +145,12 @@
     function renderMenu() {
         const nav = document.getElementById('main-nav');
         const container = document.getElementById('menu-container');
-        
         menuData.forEach((section, idx) => {
             const sectionId = `cat-${idx}`;
-            
-            // افزودن به نوار ناوبری
-            const navItem = document.createElement('a');
-            navItem.href = `#${sectionId}`;
-            navItem.className = 'nav-item';
-            navItem.innerText = section.name;
-            nav.appendChild(navItem);
-
-            // افزودن بخش محصولات
+            nav.innerHTML += `<a href="#${sectionId}" class="nav-item">${section.name}</a>`;
             let itemsHTML = section.items.map(item => `
                 <div class="item-card">
-                    <img src="${item.img}" class="item-img" onerror="this.src='https://via.placeholder.com/150?text=Cafe'">
+                    <img src="${item.img}" class="item-img" onerror="this.src='https://via.placeholder.com/80?text=SHAZDEH'">
                     <div class="item-details">
                         <h3>${item.title}</h3>
                         <p>${item.desc}</p>
@@ -183,13 +158,7 @@
                     <div class="item-price">${item.price}</div>
                 </div>
             `).join('');
-
-            container.innerHTML += `
-                <div id="${sectionId}">
-                    <h2 class="category-title">${section.name}</h2>
-                    ${itemsHTML}
-                </div>
-            `;
+            container.innerHTML += `<div id="${sectionId}"><h2 class="category-title">${section.name}</h2>${itemsHTML}</div>`;
         });
     }
     renderMenu();
