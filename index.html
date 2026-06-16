@@ -1,61 +1,213 @@
-V<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منوی دیجیتال کافه</title>
-    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-Variable-font-face.css" rel="stylesheet">
+    <title>منوی دیجیتال کافه شازده</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        body { font-family: 'Vazirmatn', sans-serif; background: #2c2420; color: #fff; margin: 0; padding: 20px; }
-        .header { text-align: center; margin-bottom: 20px; }
-        .tabs { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 20px; }
-        .tab { background: #d2a679; border: none; padding: 10px 15px; cursor: pointer; border-radius: 5px; color: #333; font-weight: bold; }
-        .menu-grid { display: grid; grid-template-columns: 1fr; gap: 15px; }
-        .item { background: #3d332e; padding: 15px; border-radius: 10px; display: flex; justify-content: space-between; align-items: center; }
-        .price { color: #d2a679; font-weight: bold; }
-        .hidden { display: none; }
+        /* تنظیمات ظاهری کلی */
+        :root {
+            --gold: #d4a373;
+            --dark-glass: rgba(20, 20, 20, 0.85);
+            --light-glass: rgba(255, 255, 255, 0.1);
+        }
+
+        body {
+            font-family: 'Tahoma', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: white;
+            /* تصویر پس‌زمینه کل سایت - می‌توانید لینک زیر را عوض کنید */
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), 
+                        url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+        }
+
+        /* هدر سایت */
+        header {
+            text-align: center;
+            padding: 50px 20px;
+            background: var(--dark-glass);
+            border-bottom: 2px solid var(--gold);
+            margin-bottom: 20px;
+        }
+
+        header h1 { font-size: 2.8rem; margin: 0; color: var(--gold); text-shadow: 2px 2px 10px black; }
+        header p { font-size: 1rem; opacity: 0.8; margin-top: 10px; }
+
+        /* نوار دسته‌بندی */
+        .categories {
+            position: sticky;
+            top: 0;
+            display: flex;
+            overflow-x: auto;
+            background: rgba(0,0,0,0.9);
+            padding: 15px;
+            gap: 10px;
+            z-index: 100;
+            border-bottom: 1px solid var(--gold);
+        }
+
+        .categories::-webkit-scrollbar { display: none; }
+
+        .cat-btn {
+            background: var(--light-glass);
+            border: 1px solid var(--gold);
+            color: white;
+            padding: 8px 18px;
+            border-radius: 25px;
+            white-space: nowrap;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
+
+        .cat-btn:hover { background: var(--gold); color: black; }
+
+        /* محفظه منو */
+        .menu-container { max-width: 700px; margin: 0 auto; padding: 20px; }
+
+        .category-section { margin-bottom: 40px; }
+
+        .category-title {
+            font-size: 1.8rem;
+            color: var(--gold);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-right: 5px solid var(--gold);
+            padding-right: 15px;
+        }
+
+        /* کارت هر محصول */
+        .product-card {
+            background: var(--dark-glass);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 12px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: 0.3s;
+        }
+
+        .product-card:hover { transform: translateY(-3px); border-color: var(--gold); }
+
+        /* تصویر محصول */
+        .product-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 12px;
+            object-fit: cover;
+            border: 2px solid var(--gold);
+        }
+
+        .product-info { flex-grow: 1; }
+        .product-info h3 { margin: 0; font-size: 1.2rem; color: #fff; }
+        .product-info p { margin: 5px 0 0; font-size: 0.85rem; color: #ccc; }
+
+        .product-price {
+            text-align: left;
+            color: var(--gold);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        .product-price span { font-size: 0.7rem; color: #aaa; margin-right: 2px; }
+
+        footer { text-align: center; padding: 50px; background: rgba(0,0,0,0.8); margin-top: 50px; color: #888; }
     </style>
 </head>
 <body>
 
-<div class="header"><h1>کافه شما</h1></div>
+<header>
+    <h1>کافه شازده</h1>
+    <p><i class="fas fa-map-marker-alt"></i> مکان همیشگی شازده‌های شهر</p>
+</header>
 
-<div class="tabs" id="tabs"></div>
-<div id="menu-container" class="menu-grid"></div>
+<div class="categories" id="cat-nav">
+    <!-- دسته‌ها به صورت خودکار اینجا اضافه می‌شوند -->
+</div>
+
+<div class="menu-container" id="menu-content">
+    <!-- محصولات به صورت خودکار اینجا اضافه می‌شوند -->
+</div>
+
+<footer>
+    طراحی شده برای کافه شازده &copy; ۲۰۲۴
+</footer>
 
 <script>
-    // این بخش را تغییر دهید تا منو آپدیت شود
+    // --- بخش تنظیمات آسان (هر چه می‌خواهی اینجا تغییر بده) ---
     const menuData = [
-        { name: "اسپرسو", cat: "قهوه", price: "۴۵,۰۰۰" },
-        { name: "آیس لاته", cat: "قهوه سرد", price: "۶۵,۰۰۰" },
-        { name: "هات چاکلت", cat: "نوشیدنی گرم", price: "۵۵,۰۰۰" },
-        { name: "کیک شکلاتی", cat: "کیک و دسر", price: "۷۰,۰۰۰" },
-        { name: "املت مخصوص", cat: "صبحانه", price: "۹۰,۰۰۰" },
-        { name: "موهیتو", cat: "نوشیدنی سرد", price: "۶۰,۰۰۰" },
-        { name: "دمنوش گل‌گاوزبان", cat: "دمنوش", price: "۴۰,۰۰۰" },
-        { name: "شیک نوتلا", cat: "شیک‌ها", price: "۸۵,۰۰۰" },
-        { name: "سیب‌زمینی", cat: "میان‌وعده", price: "۵۰,۰۰۰" }
+        {
+            category: "قهوه اسپرسو",
+            icon: "fa-coffee",
+            items: [
+                { name: "اسپرسو تک", price: "۴۵,۰۰۰", desc: "۱۰۰٪ عربیکا، غلیظ و اصیل", img: "https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?q=80&w=200&auto=format&fit=crop" },
+                { name: "آمریکانو", price: "۶۰,۰۰۰", desc: "اسپرسو دو شات به همراه آب جوش", img: "https://images.unsplash.com/photo-1551033406-611cf9a28f67?q=80&w=200&auto=format&fit=crop" },
+            ]
+        },
+        {
+            category: "صبحانه",
+            icon: "fa-utensils",
+            items: [
+                { name: "املت مخصوص", price: "۱۱۰,۰۰۰", desc: "سه عدد تخم‌مرغ، گوجه تازه، کره محلی", img: "https://images.unsplash.com/photo-1494597564530-897b7a21157c?q=80&w=200&auto=format&fit=crop" },
+                { name: "صبحانه انگلیسی", price: "۱۹۰,۰۰۰", desc: "سوسیس، لوبیا، قارچ، نیمرو، نان تست", img: "https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?q=80&w=200&auto=format&fit=crop" },
+            ]
+        },
+        {
+            category: "کیک و دسر",
+            icon: "fa-ice-cream",
+            items: [
+                { name: "چیزکیک نیویورکی", price: "۸۵,۰۰۰", desc: "بافت پنیری غلیظ با لایه ترد بیسکوئیتی", img: "https://images.unsplash.com/photo-1533134242443-d4fd215305ad?q=80&w=200&auto=format&fit=crop" },
+            ]
+        }
     ];
 
-    const categories = ["قهوه", "قهوه سرد", "نوشیدنی گرم", "کیک و دسر", "صبحانه", "نوشیدنی سرد", "دمنوش", "شیک‌ها", "میان‌وعده"];
+    // تابع برای ساختن منو در صفحه
+    function buildMenu() {
+        const nav = document.getElementById('cat-nav');
+        const content = document.getElementById('menu-content');
 
-    // ساخت تب‌ها
-    const tabsContainer = document.getElementById('tabs');
-    categories.forEach(cat => {
-        const btn = document.createElement('button');
-        btn.className = 'tab'; btn.innerText = cat;
-        btn.onclick = () => render(cat);
-        tabsContainer.appendChild(btn);
-    });
+        menuData.forEach((section, index) => {
+            const sectionId = `section-${index}`;
+            
+            // اضافه کردن به نوار دسته‌بندی
+            nav.innerHTML += `<a href="#${sectionId}" class="cat-btn">${section.category}</a>`;
 
-    function render(cat) {
-        const container = document.getElementById('menu-container');
-        container.innerHTML = '';
-        menuData.filter(i => i.cat === cat).forEach(item => {
-            container.innerHTML += `<div class="item"><span>${item.name}</span><span class="price">${item.price} تومان</span></div>`;
+            // ساخت بخش مربوط به آن دسته
+            let sectionHTML = `
+                <div class="category-section" id="${sectionId}">
+                    <div class="category-title"><i class="fas ${section.icon}"></i> ${section.category}</div>
+            `;
+
+            // ساخت کارت‌های محصولات
+            section.items.forEach(item => {
+                sectionHTML += `
+                    <div class="product-card">
+                        <img src="${item.img}" class="product-img" alt="${item.name}">
+                        <div class="product-info">
+                            <h3>${item.name}</h3>
+                            <p>${item.desc}</p>
+                        </div>
+                        <div class="product-price">${item.price} <span>تومان</span></div>
+                    </div>
+                `;
+            });
+
+            sectionHTML += `</div>`;
+            content.innerHTML += sectionHTML;
         });
     }
-    render("قهوه"); // پیش‌فرض
+
+    buildMenu();
 </script>
+
 </body>
 </html>
